@@ -6,9 +6,149 @@
 </description>
     <link>/blog/</link>
     <atom:link href="/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 31 Dec 2015 03:51:26 +0000</pubDate>
-    <lastBuildDate>Thu, 31 Dec 2015 03:51:26 +0000</lastBuildDate>
+    <pubDate>Thu, 31 Dec 2015 05:44:31 +0000</pubDate>
+    <lastBuildDate>Thu, 31 Dec 2015 05:44:31 +0000</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Jekyll+Github的一個簡單範例</title>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;所謂在GitHub上使用Jekyll，其實就是把適當的Jekyll的檔案架構和名稱放置到GitHub上而已，因為GitHub已經開啟了Jekyll的服務，所以只要架構與名稱合符了規定，就可以被靜態生成出blog文件，&lt;a href=&quot;https://pages.github.com/versions/&quot;&gt;點擊這裡&lt;/a&gt;可以知道Jekyll目前在GitHub上的版本是多少。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;第零步、事前準備&quot;&gt;第零步、事前準備&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;到&lt;a href=&quot;https://github.com&quot;&gt;Github&lt;/a&gt;申請一組個人帳號&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;第一步、建立儲存庫&quot;&gt;第一步、建立儲存庫&lt;/h2&gt;
+
+&lt;p&gt;值得注意，命名儲存庫時有兩種方式:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;自訂專案名稱&lt;/li&gt;
+&lt;li&gt;命名為&lt;code&gt;你的帳號.github.io&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;這兩種結果分別會影響你專案網站的URL:&lt;/p&gt;
+
+&lt;p&gt;1.選擇&lt;strong&gt;自訂專案名稱&lt;/strong&gt;，能夠讓你的專案完整放置在&lt;code&gt;你的帳號.github.io/你的專案名稱&lt;/code&gt;下，但有一個規定是必須在&lt;code&gt;gh-pages&lt;/code&gt;分支下才會生成網頁文件，當然一個GitHub帳號能擁有多個專案網站~&lt;/p&gt;
+
+&lt;p&gt;2.如果選擇&lt;strong&gt;&lt;em&gt;你的帳號.github.io&lt;/em&gt;&lt;/strong&gt;的方式的話，URL便是&lt;code&gt;你的帳號.github.io&lt;/code&gt;，使用&lt;code&gt;master&lt;/code&gt;分支便能夠正常建置。官網上快速建置的&lt;a href=&quot;https://pages.github.com/&quot;&gt;教學&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;在這一篇裡我會介紹&lt;strong&gt;自訂專案名稱&lt;/strong&gt;的做法，為什麼呢？因為方法能套用在第2點上&lt;/p&gt;
+
+&lt;h3 id=&quot;1-首先創建一個專案&quot;&gt;1.首先創建一個專案&lt;/h3&gt;
+
+&lt;p&gt;按&lt;code&gt;new repository&lt;/code&gt;
+&lt;img src=&quot;/blog/image/2015-12-29-simple-jekyll/1.png&quot; alt=&quot;new repository&quot;&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-命名專案名稱&quot;&gt;2.命名專案名稱&lt;/h3&gt;
+
+&lt;p&gt;這裡填上&lt;code&gt;blog&lt;/code&gt;
+&lt;img src=&quot;/blog/image/2015-12-29-simple-jekyll/2.png&quot; alt=&quot;repository name&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;然後會看到這個頁面
+&lt;img src=&quot;/blog/image/2015-12-29-simple-jekyll/3.png&quot; alt=&quot;repository name blog&quot;&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;第二步、創建專案資料夾&quot;&gt;第二步、創建專案資料夾&lt;/h2&gt;
+
+&lt;p&gt;1.在你的電腦上，創建一個目錄，名稱要與剛在github上創建的專案名稱相同&lt;br&gt;
+2.進入目錄&lt;br&gt;
+3.對目錄進行初始化&lt;br&gt;
+4.切換成&lt;code&gt;gh-pages&lt;/code&gt;分支，因為github規定只有在該分支下才會生成網頁文件  &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ mkdir ~/blog
+$ cd ~/blog
+$ git init
+$ git checkout --orphan gh-pages
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;接下來的動作都需要在&lt;strong&gt;gh-pages&lt;/strong&gt;分支下完成&lt;/p&gt;
+
+&lt;h2 id=&quot;第三步、創建部落格結構&quot;&gt;第三步、創建部落格結構&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;請在&lt;code&gt;~/blog&lt;/code&gt;的路經底下操作&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;1.建立&lt;strong&gt;_config.yml文件&lt;/strong&gt;&lt;code&gt;vim _config.yml&lt;/code&gt;並加入以下內容&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;baseurl: /blog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;目錄結構變成:&lt;br&gt;
+&lt;img src=&quot;/blog/image/2015-12-29-simple-jekyll/4.png&quot; alt=&quot;config&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;　&quot;&gt;　&lt;/h1&gt;
+
+&lt;p&gt;2.建立&lt;strong&gt;index.html文件&lt;/strong&gt; &lt;code&gt;vim index.html&lt;/code&gt;並加入以下內容&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/AnkMak/3ee1aa2ed86cb105a4ea.js?file=simple-jekyll-index.html&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;目錄結構變成:&lt;br&gt;
+&lt;img src=&quot;http://ank.csie.io/blog/image/2015-12-29-simple-jekyll/5.png&quot; alt=&quot;index&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;　&quot;&gt;　&lt;/h1&gt;
+
+&lt;p&gt;3.建立&lt;strong&gt;_layout資料夾&lt;/strong&gt;並在裡面建立&lt;strong&gt;default.html文件&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ mkdir _layout
+$ touch _layout/default.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;編輯&lt;strong&gt;default.html&lt;/strong&gt; &lt;code&gt;vim _layout/default.html&lt;/code&gt;並加入以下內容
+&lt;script src=&quot;https://gist.github.com/AnkMak/3ee1aa2ed86cb105a4ea.js?file=simple-jekyll-default.html&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;目錄結構變成:&lt;br&gt;
+&lt;img src=&quot;/blog/image/2015-12-29-simple-jekyll/6.png&quot; alt=&quot;layout/default&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;　&quot;&gt;　&lt;/h1&gt;
+
+&lt;p&gt;4.建立&lt;strong&gt;_posts資料夾&lt;/strong&gt;並在裡面建立&lt;strong&gt;2012-08-25-hello-world.html文件&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;值得注意，文章一律放置於 &lt;strong&gt;_posts&lt;/strong&gt; 資料夾底下，文章要按照 &lt;strong&gt;年-月-日-名稱.副檔名&lt;/strong&gt; 來命名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ mkdir _posts
+$ touch _posts/2012-08-25-hello-world.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;編輯&lt;strong&gt;2012-08-25-hello-world.html&lt;/strong&gt; &lt;code&gt;vim _posts/2012-08-25-hello-world.html&lt;/code&gt;並加入以下內容&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/AnkMak/3ee1aa2ed86cb105a4ea.js?file=2012-08-25-hello-world.html&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;目錄結構變成:&lt;br&gt;
+&lt;img src=&quot;/blog/image/2015-12-29-simple-jekyll/7.png&quot; alt=&quot;posts/html&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;基本上現在就有一個簡單的架構jekyll，只要上傳至github就大功告成。&lt;/p&gt;
+
+&lt;h2 id=&quot;第六步、上傳發布&quot;&gt;第六步、上傳發布&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ git remote add origin https://github.com/你的用戶名/blog.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ git add .
+$ git commit -m &quot;first post&quot;
+$ git push origin gh-pages
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;以後文章如果有新增或更改，只要執行上面的3行指令重新上傳發布即可&lt;/p&gt;
+
+&lt;p&gt;上傳成功後，再等個&lt;del&gt;10&lt;/del&gt;幾分鐘，連上 http://&lt;strong&gt;你的用戶名&lt;/strong&gt;.github.com/blog/ 就可以看到了，如沒有的話...再多按幾下重新整理&lt;/p&gt;
+
+&lt;p&gt;效果大概是這樣:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/blog/image/2015-12-29-simple-jekyll/8.png&quot; alt=&quot;main blog&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;　&quot;&gt;　&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;/blog/image/2015-12-29-simple-jekyll/9.png&quot; alt=&quot;first blog&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;嗯！沒錯！因為這是最陽春的架構所以介面非常的&lt;del&gt;難看&lt;/del&gt;簡潔，不過如果你喜歡從無到有開始打造你的部落格，這種簡潔風格應該很適合你，不過由於太過&lt;del&gt;醜陋&lt;/del&gt;簡潔，甚至連我都無法直視XDD，所以下一篇會教學如何從官方默認模版(Theme)開始，修改成自已理想的外觀&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;本文內容參考自&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&quot;&gt;阮一峰-搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Tue, 29 Dec 2015 01:08:20 +0000</pubDate>
+        <link>/blog/jekyll/2015/12/29/simple-jekyll.html</link>
+        <guid isPermaLink="true">/blog/jekyll/2015/12/29/simple-jekyll.html</guid>
+        
+        <category>github,blog</category>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
     
       <item>
         <title>首次用Github Pages創建Blog--使用Jekyll</title>
